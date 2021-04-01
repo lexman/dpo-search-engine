@@ -1,0 +1,1 @@
+curl -o opencnil-organismes-avec-dpo.csv  https://static.data.gouv.fr/resources/organismes-ayant-designe-un-e-delegue-e-a-la-protection-des-donnees-dpd-dpo/20210305-112255/opencnil-organismes-avec-dpo.csv
