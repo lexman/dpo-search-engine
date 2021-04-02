@@ -1,11 +1,10 @@
-<?php
-$q = $_GET['q'];
-?>
-<!DOCTYPE html>
+<?php 
+$q = $_GET['q']; 
+?><!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8"/>
-        <title>Contacter un DPO</title>
+        <title>Contacter un Délégué aux Données Personnelles</title>
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <style>
         </style>
@@ -16,13 +15,14 @@ $q = $_GET['q'];
             <h1 class="display-3">Qui contacter pour mes données personnelles ?</h1>
             <p clas="lead">
               Vous êtes dans la base de données d'une entreprise ? Vous recevez du spam ? <br/>
-              Trouvez le contact pour formuler vos demandes RGPD de droit à l'oubli
+              Trouvez le contact pour formuler vos demandes RGPD de droit à l'oubli parmi les
+              Délégués à la Protection de Données <a href="https://www.data.gouv.fr/fr/datasets/organismes-ayant-designe-un-e-delegue-e-a-la-protection-des-donnees-dpd-dpo/">déclarées auprès de la CNIL</a>
             </p>
           </div>
           <p class="m-5">
             <form class="text-center" method="GET">
               <div class="custom-control-inline">
-                <input type="text" class="form-control" name="q" value="<?= $q ?>" placeholder="celio, donald, shop, etc.">
+                <input type="text" class="form-control" name="q" value="<?= $q ?>" placeholder="sephora, donald, shop, etc.">
                 <button type="submit" class="btn btn-primary">Go !</button>              
               </div>
             </form>
@@ -68,7 +68,8 @@ function format_row($row) {
 if (strlen($q) > 0 ) {
     
   try{
-    $conn = new PDO('sqlite:/app/dpo.db');
+    $db_path = __DIR__ . '/../data/data.db';
+    $conn = new PDO("sqlite:$db_path");
   } catch(Exception $e) {
       echo "Impossible d'accéder à la base de données SQLite : ".$e->getMessage();
       die();
@@ -86,19 +87,18 @@ if (strlen($q) > 0 ) {
       OR contact_dpo_mail LIKE $like_term
       OR contact_dpo_url LIKE $like_term
       OR contact_dpo_tel LIKE $like_term
-      LIMIT 200
   ");
   $rows = $stm->fetchAll();
   
   ?>     
           <br/>
-          <table class="table">
-            <thead>
+          <table class="table  ">
+            <thead class="thead-light">
               <tr>
                 <th scope="col">SIREN</th>
                 <th scope="col">Organisme</th>
                 <th scope="col">DPO</th>
-                <th scope="col">Contact</th>
+                <th scope="col">Contact DPO</th>
                 <th scope="col">Mise-à-jour</th>
               </tr>
             </thead>
@@ -111,7 +111,7 @@ if (strlen($q) > 0 ) {
             </tbody>
           </table>
           <p class="text-right">
-          Source : liste Délégué à la Protection de Données (en anglais DPO) <a href="https://www.data.gouv.fr/fr/datasets/organismes-ayant-designe-un-e-delegue-e-a-la-protection-des-donnees-dpd-dpo/">déclarées auprès de la CNIL</a>.
+          Source : liste des Délégués à la Protection de Données <a href="https://www.data.gouv.fr/fr/datasets/organismes-ayant-designe-un-e-delegue-e-a-la-protection-des-donnees-dpd-dpo/">déclarées auprès de la CNIL</a>.
           </p>
 <?php 
   }
