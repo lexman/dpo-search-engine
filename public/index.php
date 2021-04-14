@@ -12,24 +12,37 @@ $q = $_GET['q'];
     <body>
         <div class="container">
           <div class="text-center">
-            <h1 class="display-3">Qui contacter pour mes données personnelles ?</h1>
+            <h1>Qui contacter pour mes données personnelles ?</h1>
             <p clas="lead">
-              Vous êtes dans la base de données d'une entreprise ? Vous recevez du spam ? <br/>
-              Trouvez le contact pour formuler vos demandes RGPD de droit à l'oubli parmi les
-              Délégués à la Protection de Données <a href="https://www.data.gouv.fr/fr/datasets/organismes-ayant-designe-un-e-delegue-e-a-la-protection-des-donnees-dpd-dpo/">déclarées auprès de la CNIL</a>
+              Vous êtes dans un fichier client ? Vous voulez faire valoir votre droit à l'oubli ?<br/>
+              Cherchez le contact <a href="https://www.data.gouv.fr/fr/datasets/organismes-ayant-designe-un-e-delegue-e-a-la-protection-des-donnees-dpd-dpo/">déclaré auprès la CNIL</a>
             </p>
           </div>
           <p class="m-5">
             <form class="text-center" method="GET">
-              <div class="custom-control-inline">
-                <input type="text" class="form-control" name="q" value="<?= $q ?>" placeholder="sephora, donald, shop, etc.">
-                <button type="submit" class="btn btn-primary">Go !</button>              
+              <div class="row">
+                <input type="text" class="form-control col-md-6 m-2" name="q" value="<?= $q ?>" placeholder="sephora, donald, shop, etc.">
+                <button type="submit" class="btn btn-primary col-md-2 m-2  ">Chercher !</button>              
               </div>
             </form>
-            <small>Conseil : vous pouvez chercher tout ou partie du nom, du site web ou de l'adresse mail de l'organisme. Vous pouvez même chercher par le numéro SIREN de l'entreprise, disponible les mentions légales ou dans les mails</small>
+            <small>Conseil : vous pouvez chercher tout ou partie du nom, du site web ou de l'adresse mail de l'organisme. <br/>
+              Vous pouvez même chercher par le <a href="https://www.economie.gouv.fr/entreprises/numeros-identification-entreprise#numerosiren">numéro SIREN de l'entreprise</a>, souvent disponible les mentions légales des sites web ou en bas des mails promotionnels</small>
           </p>
       
 <?php
+  
+function figures($str) {
+  $result = "";
+  $len = strlen($str);
+  for($i = 0; $i < $len; $i++) {
+      $ch = $str[$i];
+      if ( ($ch >= '0')  && ($ch <= '9')) {
+          $result .= $ch;
+      }
+  }
+  return $result;
+}
+                       
 function format_etablissement($nom, $adresse, $cp, $ville) {
   return "<span><strong>$nom</strong></span> <br/> <small><span>$adresse</span><br/><span>$cp $ville</span></small>";
 }
@@ -75,14 +88,22 @@ if (strlen($q) > 0 ) {
       die();
   }
   $like_term = $conn->quote("%$q%");
-
+  
+  $siren_candidate = figures($q);
+  if (strlen($siren_candidate) == 9) {
+      // La requete ressemble à un numéro SIREN
+      $is_siren_term = "organisme_siren = '$siren_candidate' OR
+                        dpo_siren = '$siren_candidate' OR" ;
+  } else {
+      $is_siren_term = "" ;
+  }
+  
   $stm = $conn->query("
     SELECT *
     FROM organisme_dpo 
     WHERE 
-         organisme_siren LIKE $like_term
-      OR organisme_nom LIKE $like_term
-      OR dpo_siren LIKE $like_term
+         $is_siren_term
+         organisme_nom LIKE $like_term
       OR dpo_nom LIKE $like_term
       OR contact_dpo_mail LIKE $like_term
       OR contact_dpo_url LIKE $like_term

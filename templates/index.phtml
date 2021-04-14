@@ -2,37 +2,60 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-        <title>Slim 3</title>
-        <link href='//fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+        <title>Contacter un Délégué aux Données Personnelles</title>
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <style>
-            body {
-                margin: 50px 0 0 0;
-                padding: 0;
-                width: 100%;
-                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-                text-align: center;
-                color: #aaa;
-                font-size: 18px;
-            }
-
-            h1 {
-                color: #719e40;
-                letter-spacing: -3px;
-                font-family: 'Lato', sans-serif;
-                font-size: 100px;
-                font-weight: 200;
-                margin-bottom: 0;
-            }
         </style>
     </head>
     <body>
-        <h1>Slim</h1>
-        <div>a microframework for PHP</div>
-
-        <?php if (isset($name)) : ?>
-            <h2>Hello <?= htmlspecialchars($name); ?>!</h2>
-        <?php else: ?>
-            <p>Try <a href="http://www.slimframework.com">SlimFramework</a>
-        <?php endif; ?>
+        <div class="container">
+          <div class="text-center">
+            <h1 class="display-3">Qui contacter pour mes données personnelles ?</h1>
+            <p clas="lead">
+              Vous êtes dans un fichier client ? Vous voulez faire valoir votre droit à l'oubli ?<br/>
+              Cherchez le contact <a href="https://www.data.gouv.fr/fr/datasets/organismes-ayant-designe-un-e-delegue-e-a-la-protection-des-donnees-dpd-dpo/">déclaré auprès la CNIL</a>
+            </p>
+          </div>
+          <p class="m-5">
+            <form class="text-center" method="GET">
+              <div class="custom-control-inline">
+                <input type="text" class="form-control" name="q" value="<?= $q ?>" placeholder="sephora, donald, shop, etc.">
+                <button type="submit" class="btn btn-primary">Go !</button>              
+              </div>
+            </form>
+            <small>Conseil : vous pouvez chercher tout ou partie du nom, du site web ou de l'adresse mail de l'organisme. Vous pouvez même chercher par le numéro SIREN de l'entreprise, disponible les mentions légales ou dans les mails</small>
+          </p>
+      
+<?php  
+if (strlen($q) > 0 ) {
+  ?>     
+          <br/>
+          <table class="table  ">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">SIREN</th>
+                <th scope="col">Organisme</th>
+                <th scope="col">DPO</th>
+                <th scope="col">Contact DPO</th>
+                <th scope="col">Mise-à-jour</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              foreach($rows as $row) {
+                print(format_row($row));
+              }
+              ?>
+            </tbody>
+          </table>
+          <p class="text-right">
+          Source : liste des Délégués à la Protection de Données <a href="https://www.data.gouv.fr/fr/datasets/organismes-ayant-designe-un-e-delegue-e-a-la-protection-des-donnees-dpd-dpo/">déclarées auprès de la CNIL</a>.
+          </p>
+<?php 
+  }
+?>
+        </div>
     </body>
 </html>
+
+

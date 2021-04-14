@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Contact non trouvé dans la base CNIL</title>
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <style>
+        </style>
+    </head>
+    <body>
+        <div class="container">
+          <div class="text-center">
+            <h1 class="display-3">Contact inconnu ?</h1>
+            <p clas="lead">
+              Soumettez nous ces organismes  qui ne figurent pas dans la liste de la CNIL
+            </p>
+          </div>
+            <form method="POST">
+              <div class="card m-2">
+                <div class="card-header">
+                Organisme (entreprise, association, collectivité)<br/>
+                <small>Renseignez au moins un des trois</small>
+                </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="nom_organisme">Nom</label>
+                        <input type="text" class="form-control" name="nom_organisme" placeholder="Burton of London">
+                  </div>
+                  <div class="form-group">
+                    <label for="site_organisme">Site web</label>
+                      <input type="text" class="form-control" name="site_organisme" placeholder="burton.fr">
+                  </div>
+                  <div class="form-group">
+                  <label for="siren_organisme">Numéro SIREN</label>
+                      <input type="text" class="form-control" name="siren_organisme" placeholder="RSC 318 148 467">
+                  </div>
+                </div>
+              </div>
+              <div class="card m-2">
+                <div class="card-header">
+                Information DPO (Délégué à la Protection des Données en français)
+                <p><small>Si vous avez trouvé des informations sur le contact DPO dans les newletters, ou bien sur le site web (pages <em>Mentions légales</em>, <em>Donnés personnelles</em>, <em>Conditions générales de vente (CGV)</em>,<em>Conditions Générales d'utilisation (CGU)</em>, etc.)</small></p>
+                </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="dpo_mail">Mail DPO</label>
+                      <input type="text" class="form-control" name="dpo_mail" placeholder="emma.smith@burton.fr">                
+                  </div>
+                  <div class="form-group">
+                    <label for="page_verification_dpo">Page mentionnant l'adresse DPO (pour vérification)</label>
+                      <input type="text" class="form-control" name="page_verification_dpo" placeholder="https://www.burton.fr/mentions-legales.php">
+                  </div>
+                </div>
+              </div>            
+              <div class="card m-2">
+                <div class="card-header">
+                  Autre
+                </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="mail_from">Adresse mail courrier publicitaire</label>
+                    <p><small>Si vous avez reçu des email publicitaires, de quelle adresse ont-ils été envoyés ?</small></p>
+                      <input type="text" class="form-control" name="organisme_sender_email" placeholder="BURTON@nl.burton.fr">
+                  </div>
+                  <div class="form-group">
+                    <label for="organisme_linkedin">Page LinkedIn de l'organisme</label>
+                      <input type="text" class="form-control" name="organisme_linkedin" placeholder="https://www.linkedin.com/search/results/people/?keywords=burton%20of%20london">
+                  </div>
+                  <div class="form-group">
+                    <label for="contact">Contacts</label>
+                    <p><small>Si aucune info n'est disponible sur le DPO, à qui peut-on s'adresser : Directeur Général, Directeur Financier, Directeur Juridique, etc. (souvent disponible sur linkedIn sur les pages de l'entreprise). <br/>Format : prénom(s) - Nom - fonction 
+                    <textarea class="form-control" name="contacts" placeholder="Anne Laure - COUPLET - CEO
+Edouard - Descombes - Chief Digital Officer"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="m-2">
+                <input type="submit" class="btn btn-primary container-fluid" value="Envoyer"/>
+              </div>
+            </form>
+      </div>
+  </body>
+</html>
