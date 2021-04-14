@@ -21,7 +21,7 @@ $q = $_GET['q'];
           <p class="m-5">
             <form class="text-center" method="GET">
               <div class="row">
-                <input type="text" class="form-control col-md-6 m-2" name="q" value="<?= $q ?>" placeholder="sephora, donald, shop, etc.">
+                <input type="text" class="form-control col-md-6 m-2" name="q" value="<?= $q ?>" placeholder="sephora, donald, shop, B 542 086 616, etc.">
                 <button type="submit" class="btn btn-primary col-md-2 m-2  ">Chercher !</button>              
               </div>
             </form>
