@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Contacter un Délégué aux Données Personnelles</title>
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <style>
+        </style>
+    </head>
+    <body>
+        <div class="container">
+          <div class="text-center">
+            <h1>Qui contacter pour mes données personnelles ?</h1>
+            <p clas="lead">
+              Vous êtes dans un fichier client ? Vous voulez faire valoir votre droit à l'oubli ?<br/>
+              Cherchez le contact <a href="https://www.data.gouv.fr/fr/datasets/organismes-ayant-designe-un-e-delegue-e-a-la-protection-des-donnees-dpd-dpo/">déclaré auprès la CNIL</a>
+            </p>
+          </div>
+          <p class="m-5">
+            <form class="text-center" method="GET">
+              <div class="row">
+                <input type="text" class="form-control col-md-6 m-2" name="q" value="<?= $q ?>" placeholder="sephora, donald, shop, B 542 086 616, etc.">
+                <button type="submit" class="btn btn-primary col-md-2 m-2  ">Chercher !</button>              
+              </div>
+            </form>
+            <small>Conseil : vous pouvez chercher tout ou partie du nom, du site web ou de l'adresse mail de l'organisme. <br/>
+              Vous pouvez même chercher par le <a href="https://www.economie.gouv.fr/entreprises/numeros-identification-entreprise#numerosiren">numéro SIREN de l'entreprise</a>, souvent disponible les mentions légales des sites web ou en bas des mails promotionnels</small>
+          </p>
+      
+        <?php if (strlen($q) > 0 ) { ?>
+        <br/>
+          <table class="table  ">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">SIREN</th>
+                <th scope="col">Organisme</th>
+                <th scope="col">DPO</th>
+                <th scope="col">Contact DPO</th>
+                <th scope="col">Mise-à-jour</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach($rows as $row) { ?>
+              <tr>
+                <th scope="row"> <?= $row['siren'] ?> </th>
+                <td> <span><strong><?= $row['organisme_nom'] ?></strong></span> <br/> <small><span><?= $row['organisme_adresse'] ?></span><br/><span>$<?= $row['organisme_cp'] ?> <?= $row['organisme_ville'] ?></span></small> </td>
+                <td> 
+                  <span><strong><?= $row['dpo_nom'] ?></strong></span> <br/> <small><span><?= $row['dpo_adresse'] ?></span><br/><span>$<?= $row['dpo_cp'] ?> <?= $row['dpo_ville'] ?></span></small> 
+                  <?php if ($row['type_dpo'] == "Personne morale") { ?>
+                    <br/><small>(Personne morale)</small>
+                  <?php }?>
+                </td>
+                <td>
+                    <?php if (strlen($row['contact_dpo_mail']) > 0) { ?>
+                      <p><a href='mailto://<?= $row['contact_dpo_mail'] ?>'><?= $row['contact_dpo_mail'] ?></a></p>
+                    <?php } ?>
+                    <?php if (strlen($row['contact_dpo_url']) > 0) { ?>
+                      <p><a href='<?= $row['contact_mail'] ?>' target='blank'><?= $row['contact_mail'] ?></a><p/>
+                    <?php } ?>
+                </td>
+                <td><?= $row['date_designation'] ?></td>
+              </tr>
+              <?php } ?>
+            </tbody>
+          </table>
+          <p class="text-right">
+          Source : liste des Délégués à la Protection de Données <a href="https://www.data.gouv.fr/fr/datasets/organismes-ayant-designe-un-e-delegue-e-a-la-protection-des-donnees-dpd-dpo/">déclarées auprès de la CNIL</a>.
+          </p>
+        <?php } ?>
+        </div>
+    </body>
+</html>
+
+

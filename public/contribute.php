@@ -14,7 +14,7 @@ if (strlen($nom_organisme) > 0 || strlen($site_organisme) > 0 || strlen($siren_o
   // Entrée correcte : au moins 1 des 3
   
   try{
-    $db_path = __DIR__ . '/../data/contribute.db';
+    $db_path = 'private/data/contribute.db';
     $conn = new PDO("sqlite:$db_path");
   } catch(Exception $e) {
       echo "Impossible d'accéder à la base de données SQLite : ".$e->getMessage();
@@ -42,6 +42,5 @@ if (strlen($nom_organisme) > 0 || strlen($site_organisme) > 0 || strlen($siren_o
   } 
 }
 
-$html = render_template('contribute.phtml', array());
-print($html);
+include "private/templates/contribute.phtml";
 ?>
