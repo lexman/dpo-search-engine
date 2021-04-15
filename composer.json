@@ -2,7 +2,7 @@
     "name": "lexman/dpo-search-engine",
     "description": "Un moteur de recherche parmis les DPO déclarés à la CNIL",
     "keywords": ["microframework", "rest", "DPO"],
-    "homepage": "http://github.com/slimphp/Slim-Skeleton",
+    "homepage": "https://github.com/lexman/dpo-search-engine",
     "license": "MIT",
     "authors": [
         {
@@ -23,7 +23,7 @@
         }
     },
 	"scripts": {
-        "start": "php -S 0.0.0.0:8080 -t public"
+        "start": "php -S 0.0.0.0:8080 -t www"
 	}
 
 }
