@@ -19,4 +19,7 @@ jobs:
           ./prepare-data.sh
 
       - name: Upload database to production website
+        env:
+            FTP_USER: ${{ secrets.FTP_USER }}
+            FTP_PASS: ${{ secrets.FTP_PASS }}
         run: curl -u $FTP_USER:$FTP_PASS -T www/private/data/data.db ftp://ftp.online.net/recherche-dpo.opendata/private/data/data.db
