@@ -1,0 +1,14 @@
+[x] Rechercher les SIREN avec ou sans espaces
+[ ] formulaire de renseignement sur un contact
+  [ ] ...
+  [ ] validation basique
+  [ ] mettre en rouge les champs impactés
+[ ] hébergement online
+  [x] restructuration
+  [ ] deployement
+[ ] monitoring contributions ? visites ?
+[ ] écrire à opendatagouv
+[x] gérer beaucoup de résultats
+[ ] Doc SIREN
+[ ] lien vers contribution
+  

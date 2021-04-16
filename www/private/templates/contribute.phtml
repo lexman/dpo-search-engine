@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Contact non trouvé dans la base CNIL</title>
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <style>
+        </style>
+    </head>
+    <body>
+        <div class="container">
+          <div class="text-center">
+            <h1>Contact inconnu ?</h1>
+            <p clas="lead">
+              Soumettez-nous ces organismes  qui ne figurent pas dans la liste de la CNIL
+            </p>
+          </div>
+            <form method="POST">
+              <div class="card m-2">
+                <div class="card-header">
+                Organisme (entreprise, association, collectivité, administration, etc)<br/>
+                <small id="organisme_requirement">Renseignez au moins un des trois</small>
+                </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="nom_organisme">Nom</label>
+                        <input type="text" class="form-control" name="nom_organisme" id="nom_organisme" placeholder="Burton of London">
+                  </div>
+                  <div class="form-group">
+                    <label for="site_organisme">Site web</label>
+                      <input type="text" class="form-control" name="site_organisme" id="site_organisme" placeholder="burton.fr">
+                  </div>
+                  <div class="form-group">
+                  <label for="siren_organisme">Numéro SIREN</label>
+                      <input type="text" class="form-control" name="siren_organisme" id="siren_organisme" placeholder="RSC 318 148 467">
+                  </div>
+                </div>
+              </div>
+              <div class="card m-2">
+                <div class="card-header">
+                Information DPO (Délégué à la Protection des Données en français)
+                <p><small>Si vous avez trouvé des informations sur le contact DPO dans les newletters, ou bien sur le site web (pages <em>Mentions légales</em>, <em>Donnés personnelles</em>, <em>Conditions générales de vente (CGV)</em>,<em>Conditions Générales d'utilisation (CGU)</em>, etc.)</small></p>
+                </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="dpo_mail">Mail DPO</label>
+                      <input type="text" class="form-control" name="dpo_mail" placeholder="emma.smith@burton.fr">                
+                  </div>
+                  <div class="form-group">
+                    <label for="page_verification_dpo">Page mentionnant l'adresse DPO (pour vérification)</label>
+                      <input type="text" class="form-control" name="page_verification_dpo" placeholder="https://www.burton.fr/mentions-legales.php">
+                  </div>
+                </div>
+              </div>            
+              <div class="card m-2">
+                <div class="card-header">
+                  Autre
+                </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="mail_from">Adresse mail courrier publicitaire</label>
+                    <p><small>Si vous avez reçu des email publicitaires, de quelle adresse ont-ils été envoyés ?</small></p>
+                      <input type="text" class="form-control" name="organisme_sender_email" placeholder="BURTON@nl.burton.fr">
+                  </div>
+                  <div class="form-group">
+                    <label for="organisme_linkedin">Page LinkedIn de l'organisme</label>
+                      <input type="text" class="form-control" name="organisme_linkedin" placeholder="https://www.linkedin.com/search/results/people/?keywords=burton%20of%20london">
+                  </div>
+                  <div class="form-group">
+                    <label for="contacts">Contacts</label>
+                    <p><small>Si aucune info n'est disponible sur le DPO, à qui peut-on s'adresser ? Directeur Général, Directeur Financier, Directeur Juridique, etc. (souvent disponible sur linkedIn sur les pages de l'entreprise).</small></p> 
+                    <textarea class="form-control" name="contacts" id="contacts" placeholder="Anne Laure - COUPLET - CEO
+Edouard - Descombes - Chief Digital Officer"></textarea>
+                    <p id="format_contacts"><small>Format : prénom(s) - Nom - fonction </small></p>
+                  </div>
+                </div>
+              </div>
+              <div class="m-2">
+                <input type="submit" class="btn btn-primary container-fluid" value="Envoyer"/>
+              </div>
+            </form>
+      </div>
+     <script>
+       function organismeSpecified() {
+         var nom = document.getElementById('nom_organisme');
+         var site = document.getElementById('site_organisme');
+         var siren = document.getElementById('siren_organisme');
+         return (nom.value.length > 0) || (site.value.length > 0) || (siren.value.length > 0);
+         
+       }
+       
+       function contactWellFormated(line) {
+         var parts = line.split("-");
+         return parts.length == 3;
+       }
+       
+       function contactsWellFormated(txt) {
+         if (txt == "") {
+           return true;
+         }
+         var lines = txt.split("\n");
+         for (line of lines) {
+           if (!contactWellFormated(line)) {
+             return false;
+           }           
+         }
+         return true;
+       }
+       
+       var form  = document.getElementsByTagName('form')[0];
+       var taContacts = document.getElementById('contacts');
+       form.addEventListener("submit", function (event) {
+          if (!organismeSpecified()) {
+            document.getElementById('organisme_requirement').className = "text-danger";
+            event.preventDefault();
+          } else {
+            document.getElementById('organisme_requirement').className = "";            
+          }
+          if (!contactsWellFormated(taContacts.value) ) {
+            document.getElementById('format_contacts').className = "text-danger";
+            event.preventDefault();
+          } else {
+            document.getElementById('format_contacts').className = "";            
+          }
+       }, false);
+    </script> 
+  </body>
+</html>
