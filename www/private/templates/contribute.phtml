@@ -10,29 +10,29 @@
     <body>
         <div class="container">
           <div class="text-center">
-            <h1 class="display-3">Contact inconnu ?</h1>
+            <h1>Contact inconnu ?</h1>
             <p clas="lead">
-              Soumettez nous ces organismes  qui ne figurent pas dans la liste de la CNIL
+              Soumettez-nous ces organismes  qui ne figurent pas dans la liste de la CNIL
             </p>
           </div>
             <form method="POST">
               <div class="card m-2">
                 <div class="card-header">
-                Organisme (entreprise, association, collectivité)<br/>
-                <small>Renseignez au moins un des trois</small>
+                Organisme (entreprise, association, collectivité, administration, etc)<br/>
+                <small id="organisme_requirement">Renseignez au moins un des trois</small>
                 </div>
                 <div class="card-body">
                   <div class="form-group">
                     <label for="nom_organisme">Nom</label>
-                        <input type="text" class="form-control" name="nom_organisme" placeholder="Burton of London">
+                        <input type="text" class="form-control" name="nom_organisme" id="nom_organisme" placeholder="Burton of London">
                   </div>
                   <div class="form-group">
                     <label for="site_organisme">Site web</label>
-                      <input type="text" class="form-control" name="site_organisme" placeholder="burton.fr">
+                      <input type="text" class="form-control" name="site_organisme" id="site_organisme" placeholder="burton.fr">
                   </div>
                   <div class="form-group">
                   <label for="siren_organisme">Numéro SIREN</label>
-                      <input type="text" class="form-control" name="siren_organisme" placeholder="RSC 318 148 467">
+                      <input type="text" class="form-control" name="siren_organisme" id="siren_organisme" placeholder="RSC 318 148 467">
                   </div>
                 </div>
               </div>
@@ -67,10 +67,11 @@
                       <input type="text" class="form-control" name="organisme_linkedin" placeholder="https://www.linkedin.com/search/results/people/?keywords=burton%20of%20london">
                   </div>
                   <div class="form-group">
-                    <label for="contact">Contacts</label>
-                    <p><small>Si aucune info n'est disponible sur le DPO, à qui peut-on s'adresser : Directeur Général, Directeur Financier, Directeur Juridique, etc. (souvent disponible sur linkedIn sur les pages de l'entreprise). <br/>Format : prénom(s) - Nom - fonction 
-                    <textarea class="form-control" name="contacts" placeholder="Anne Laure - COUPLET - CEO
+                    <label for="contacts">Contacts</label>
+                    <p><small>Si aucune info n'est disponible sur le DPO, à qui peut-on s'adresser ? Directeur Général, Directeur Financier, Directeur Juridique, etc. (souvent disponible sur linkedIn sur les pages de l'entreprise).</small></p> 
+                    <textarea class="form-control" name="contacts" id="contacts" placeholder="Anne Laure - COUPLET - CEO
 Edouard - Descombes - Chief Digital Officer"></textarea>
+                    <p id="format_contacts"><small>Format : prénom(s) - Nom - fonction </small></p>
                   </div>
                 </div>
               </div>
@@ -79,5 +80,49 @@ Edouard - Descombes - Chief Digital Officer"></textarea>
               </div>
             </form>
       </div>
+     <script>
+       function organismeSpecified() {
+         var nom = document.getElementById('nom_organisme');
+         var site = document.getElementById('site_organisme');
+         var siren = document.getElementById('siren_organisme');
+         return (nom.value.length > 0) || (site.value.length > 0) || (siren.value.length > 0);
+         
+       }
+       
+       function contactWellFormated(line) {
+         var parts = line.split("-");
+         return parts.length == 3;
+       }
+       
+       function contactsWellFormated(txt) {
+         if (txt == "") {
+           return true;
+         }
+         var lines = txt.split("\n");
+         for (line of lines) {
+           if (!contactWellFormated(line)) {
+             return false;
+           }           
+         }
+         return true;
+       }
+       
+       var form  = document.getElementsByTagName('form')[0];
+       var taContacts = document.getElementById('contacts');
+       form.addEventListener("submit", function (event) {
+          if (!organismeSpecified()) {
+            document.getElementById('organisme_requirement').className = "text-danger";
+            event.preventDefault();
+          } else {
+            document.getElementById('organisme_requirement').className = "";            
+          }
+          if (!contactsWellFormated(taContacts.value) ) {
+            document.getElementById('format_contacts').className = "text-danger";
+            event.preventDefault();
+          } else {
+            document.getElementById('format_contacts').className = "";            
+          }
+       }, false);
+    </script> 
   </body>
 </html>

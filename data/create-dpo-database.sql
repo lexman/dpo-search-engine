@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS organisme_dpo;
 CREATE TABLE organisme_dpo (
   organisme_siren	,
   organisme_nom	,
-  onisme_secteur_activite	,
+  organisme_secteur_activite	,
   organisme_naf	,
   organisme_adresse	,
   organisme_cp	,
@@ -33,10 +33,14 @@ CREATE TABLE organisme_dpo (
 )
 ;
 
-.separator ";"
+.mode ascii
+.separator ";" "\n"
 .import opencnil-organismes-avec-dpo.csv organisme_dpo
 -- remove header
 DELETE FROM organisme_dpo WHERE rowid=1;
+-- remove bad input lines if necessary
+DELETE FROM organisme_dpo WHERE organisme_siren IS NULL;
+.mode csv
 SELECT * FROM organisme_dpo LIMIT 2;
 SELECT COUNT(*) FROM organisme_dpo;
 

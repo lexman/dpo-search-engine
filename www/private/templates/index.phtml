@@ -16,14 +16,18 @@
             </p>
           </div>
           <p class="m-5">
-            <form class="text-center" method="GET">
+            <form method="GET">
+              <label for="q" class=""><small2>Cherchez tout ou partie du nom, du site web ou de l'adresse mail de l'organisme</small2></label>
               <div class="row">
-                <input type="text" class="form-control col-md-6 m-2" name="q" value="<?= $q ?>" placeholder="sephora, donald, shop, B 542 086 616, etc.">
+                  <input type="text" class="form-control col-md-6 m-2" name="q" value="<?= $q ?>" placeholder="sephora, donald, shop, B 542 086 616, etc.">
                 <button type="submit" class="btn btn-primary col-md-2 m-2  ">Chercher !</button>              
               </div>
-            </form>
-            <small>Conseil : vous pouvez chercher tout ou partie du nom, du site web ou de l'adresse mail de l'organisme. <br/>
-              Vous pouvez même chercher par le <a href="https://www.economie.gouv.fr/entreprises/numeros-identification-entreprise#numerosiren">numéro SIREN de l'entreprise</a>, souvent disponible les mentions légales des sites web ou en bas des mails promotionnels</small>
+              
+              
+            <p><small>Astuce : vous pouvez même chercher par le <a href="https://www.economie.gouv.fr/entreprises/numeros-identification-entreprise#numerosiren">numéro SIREN de l'entreprise</a>, souvent disponible les mentions légales des sites web ou en bas des mails promotionnels</small></p>
+
+          
+          </form>
           </p>
       
         <?php if (strlen($q) > 0 ) { ?>
