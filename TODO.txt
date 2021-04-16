@@ -5,7 +5,8 @@
   [ ] mettre en rouge les champs impactés
 [ ] hébergement online
   [x] restructuration
-  [ ] deployement
+  [ ] deploiement data
+  [ ] deploiement site
 [ ] monitoring contributions ? visites ?
 [ ] écrire à opendatagouv
 [x] gérer beaucoup de résultats
