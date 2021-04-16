@@ -19,4 +19,4 @@ jobs:
           ./prepare-data.sh
 
       - name: Upload database to production website
-        run: echo Hello, world!
+        run: curl -u $FTP_USER:$FTP_PASS -T www/private/data/data.db ftp://ftp.online.net/recherche-dpo.opendata/private/data/data.db
