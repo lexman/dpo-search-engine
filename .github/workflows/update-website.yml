@@ -15,4 +15,6 @@ jobs:
         env:
             FTP_USER: ${{ secrets.FTP_USER }}
             FTP_PASS: ${{ secrets.FTP_PASS }}
-        run: find www -type f -exec curl -u $FTP_USER:$FTP_PASS --ftp-create-dirs -T {} ftp://ftp.online.net/recherche-dpo.opendata/{} \;
+        run: |
+          cd www
+          find . -type f -exec curl -u $FTP_USER:$FTP_PASS --ftp-create-dirs -T {} ftp://ftp.online.net/recherche-dpo.opendata/{} \;
