@@ -47,7 +47,10 @@
               <?php foreach($rows as $row) { ?>
               <tr>
                 <th scope="row"> <?= $row['siren'] ?> </th>
-                <td> <span><strong><?= $row['organisme_nom'] ?></strong></span> <br/> <small><span><?= $row['organisme_adresse'] ?></span><br/><span>$<?= $row['organisme_cp'] ?> <?= $row['organisme_ville'] ?></span></small> </td>
+                <td> <span><strong><?= $row['organisme_nom'] ?></strong></span> <br/>
+                  <small><span><?= $row['organisme_adresse'] ?></span><br/>
+                  <span><?= $row['organisme_cp'] ?> <?= $row['organisme_ville'] ?></span></small> 
+                </td>
                 <td> 
                   <span><strong><?= $row['dpo_nom'] ?></strong></span> <br/> <small><span><?= $row['dpo_adresse'] ?></span><br/><span><?= $row['dpo_cp'] ?> <?= $row['dpo_ville'] ?></span></small> 
                   <?php if ($row['type_dpo'] == "Personne morale") { ?>
